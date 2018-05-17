@@ -1,0 +1,25 @@
+
+// main: ../../index.less
+
+.button {
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.03s;
+  .shaded(rgba(128, 128, 128, 0.678), rgba(85, 85, 85, 0.637));
+  .shadow(2px, 1px, @thumb-shadow-color);
+  &:active{
+    .shaded(rgba(255, 191, 138, 0.911), rgba(255, 115, 0, 0.883));
+    .shadow(1px, 10px, rgba(255, 115, 0, 0.65));
+  }
+}
+// .button__not-pressed {
+//   .shaded(rgba(128, 128, 128, 0.678), rgba(85, 85, 85, 0.637));
+//   .shadow(2px, 1px, @thumb-shadow-color);
+// }
+// .button__pressed {
+//   .shaded(rgba(255, 191, 138, 0.911), rgba(255, 115, 0, 0.883));
+//   .shadow(1px, 10px, rgba(255, 115, 0, 0.65));
+// }

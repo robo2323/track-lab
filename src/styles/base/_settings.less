@@ -1,0 +1,26 @@
+@bg-dark: rgb(12, 25, 34);
+
+@font-color-light-a: whitesmoke;
+
+.shaded(@color-start,@color-end) {
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, @color-start, @color-end);
+  background-image: linear-gradient(to bottom right, @color-start, @color-end);
+}
+
+.shadow(@shadow-size,@shadow-blur,@shadow-color) {
+  box-shadow: @shadow-size @shadow-size @shadow-blur @shadow-color, 0px 0px @shadow-size lighten(@shadow-color, 5%);
+}
+
+.component-background() {
+  background: rgb(181, 189, 200);
+  background: -moz-linear-gradient(-45deg, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgb(66, 78, 85) 100%);
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(181, 189, 200, 1) 0%,
+    rgba(130, 140, 149, 1) 36%,
+    rgb(66, 78, 85) 100%
+  );
+  background: linear-gradient(135deg, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgb(66, 78, 85) 100%);
+}

@@ -1,0 +1,53 @@
+// main: ../../index.less
+.mono-flex(){
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.osc {
+  grid-area: osc;
+.mono-flex;
+}
+.filt {
+  grid-area: filt;
+.mono-flex;
+  
+}
+.lfo {
+  grid-area: lfo;
+.mono-flex;
+  
+}
+.env {
+  grid-area: env;
+.mono-flex;
+  
+}
+.displayContainer {
+  grid-area: display;
+  .mono-flex;
+  justify-content: center;
+
+  
+}
+.text {
+  grid-area: text;
+  text-align: left;
+
+  
+}
+
+.mono-synth {
+  width:600px;
+  height:400px;
+  .component-background;
+  
+  display: grid;
+  
+  // grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'osc osc . text filt filt'
+    'lfo . display display env env';
+  padding: 10px;
+}

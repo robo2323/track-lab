@@ -1,0 +1,13 @@
+.container-med {
+  width: 500px;
+  height: 300px;
+  padding: 30px;
+}
+.flex-row {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  position: relative;
+}
