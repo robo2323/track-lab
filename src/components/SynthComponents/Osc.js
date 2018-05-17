@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Slider from '../Elements/Slider';
-import Switch from '../Elements/Switch';
+// import Switch from '../Elements/Switch';
 import Button from '../Elements/Button';
 import Label from '../Elements/Label';
 import Display from '../Elements/Display';
@@ -10,30 +10,71 @@ class Osc extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wavType: 'saw',
-      wavTypes: ['saw', 'sqr', 'tri', 'sin'],
-      wavTypeI: 0
+      wavType: this.props.defaultWavType,
+      wavTypes: this.props.wavTypes,
+      wavTypeI: 0,
+      tuningCourse: 0,
+      tuningFine: 0,
+      tuning: 0
     };
     this._handleClick = this._handleClick.bind(this);
+    this._handleLevelChange = this._handleLevelChange.bind(this);
+    this._handleTuningChange = this._handleTuningChange.bind(this);
   }
   _handleClick() {
-    const i = this.state.wavTypeI < 4 ? this.state.wavTypeI : 0;
+    const i = this.state.wavTypeI < this.state.wavTypes.length - 1 ? this.state.wavTypeI + 1 : 0;
     this.setState({ wavTypeI: i });
     this.setState({ wavType: this.state.wavTypes[i] });
+    this.props.oscChange({ oscName: this.props.oscName, wavtype: this.state.wavTypes[i] });
+  }
+  _handleLevelChange(target) {
+    this.props.gainChange({ oscName: this.props.oscName, level: target.value });
+  }
+  _handleTuningChange(target) {
+    if (target.id === 'fine') {
+      const tuning = +this.state.tuningCourse + +target.value;
+      this.setState({ tuning });
+      this.props.tuningChange({ oscName: this.props.oscName, tuning });
+    } else {
+      this.setState({ tuning: target.value });
+      this.setState({ tuningCourse: target.value });
+      this.props.tuningChange({ oscName: this.props.oscName, tuning: target.value });
+    }
   }
   render() {
     return (
-      <div>
-        <div className="control">
+      <div className="osc-container">
+        <div className="osc-level">
+          <Slider _input={this._handleLevelChange} />
+          <p />
           <Label text="Osc Level" />
-          <Slider />
         </div>
-        <div className="control">
-          <Label text="wave type" />
+        <div className="wavtype">
+          <Label text="Wave Shape" />
           <Button _handleClick={this._handleClick} />
+
+          <Display data={this.state.wavType} width={48} height={28} />
         </div>
-        <div className="control">
-          <Display data={this.state.wavType} width={50} height={30} />
+        <div className="tuning">
+          <Slider
+            styles={{ left: '2px' }}
+            min={-1200}
+            max={1200}
+            value={0}
+            step={100}
+            _input={this._handleTuningChange}
+          />
+          <Slider
+            styles={{ left: '-30px' }}
+            min={-100}
+            max={100}
+            value={0}
+            step={1}
+            _input={this._handleTuningChange}
+            id="fine"
+          />
+          <Display data={this.state.tuning} width={48} height={28} />
+          <Label text="Tuning" />
         </div>
       </div>
     );

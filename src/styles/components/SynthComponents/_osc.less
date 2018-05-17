@@ -1,0 +1,44 @@
+// main: ../../index.less
+.osc-flex() {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  background: rgba(141, 152, 163, 0.411);
+  border: 1px solid rgba(0, 0, 0, 0.089);
+  border-radius: 5px;
+}
+.osc-level {
+  position: relative;
+  grid-area: osc-level;
+  .osc-flex;
+  justify-content: space-evenly;
+}
+.wavtype {
+  grid-area: wavtype;
+  .osc-flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.tuning {
+  position: relative;
+  grid-area: tuning;
+  .osc-flex;
+  align-items: center;
+  justify-content: flex-end;
+  .label{
+    margin:8px 0;
+  }
+}
+
+.osc-container {
+  display: grid;
+  .shadow(1px, 2px, rgba(34, 34, 34, 0.7));
+  border-radius: 5px;
+  background: rgb(36, 36, 36);
+
+  // grid-template-columns: 1fr;
+  //   grid-template-rows: auto;
+  grid-template-areas:
+    'osc-level wavtype tuning'
+    'osc-level wavtype tuning';
+}

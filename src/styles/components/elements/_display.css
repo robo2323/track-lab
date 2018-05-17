@@ -1,9 +1,0 @@
-.display {
-  font-family: 'Electrolize', sans-serif;
-  padding: 10px;
-  background: #c1d7d0;
-  background-image: -webkit-linear-gradient(bottom right, #c1d7d2, #a2c3bd);
-  background-image: linear-gradient(to top left, #c1d7d2, #a2c3bd);
-  border-radius: 3px;
-  box-shadow: inset 2px 2px 10px #222;
-}

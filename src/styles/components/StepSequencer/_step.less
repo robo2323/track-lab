@@ -1,0 +1,24 @@
+// main: ../../index.less
+
+.step {
+  width: 40px;
+  height: 40px;
+  margin:0 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.03s;
+  .shadow(2px, 1px, @thumb-shadow-color);
+  &:active {
+    .shaded(rgba(255, 191, 138, 0.911), rgba(255, 115, 0, 0.883));
+    .shadow(1px, 10px, rgba(255, 115, 0, 0.65));
+  }
+}
+.step__not-clicked {
+  .shaded(rgba(128, 128, 128, 0.678), rgba(85, 85, 85, 0.637));
+  .shadow(2px, 1px, @thumb-shadow-color);
+}
+.step__clicked {
+  .shaded(rgba(138, 183, 255, 0.911), rgba(25, 106, 238, 0.883));
+  .shadow(1px, 10px, rgba(0, 98, 255, 0.883));
+}

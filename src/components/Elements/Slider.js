@@ -1,9 +1,22 @@
 import React from 'react';
 
-const Slider = ({ min = 0, max = 1000, value = 500, step = 1, _onChange }) => {
+const Slider = ({ min = -15, max = 10, value = 0, step = 1, _input, styles = {}, id = '' }) => {
+  const _onChange = (e) => {
+    _input(e.target);
+  };
   return (
-    <div style={{width:'35px'}}>
-      <input onChange={_onChange} className="slider" type="range" min={min} max={max} defaultValue={value} step={step} />
+    <div style={{ width: '35px' }}>
+      <input
+        id={id}
+        onChange={_onChange}
+        className="slider"
+        type="range"
+        min={min}
+        max={max}
+        defaultValue={value}
+        step={step}
+        style={styles}
+      />
     </div>
   );
 };

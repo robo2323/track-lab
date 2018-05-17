@@ -14,10 +14,12 @@ class Button extends Component {
     this.props._handleClick && this.props._handleClick();
   }
   render() {
+    const styles = this.props.styles || {};
     return (
       <div
         onClick={this._onClick}
         className={`button ${this.state.switched ? 'button__pressed' : 'button__not-pressed'}`}
+        style={styles}
       />
     );
   }
