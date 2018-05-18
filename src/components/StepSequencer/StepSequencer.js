@@ -5,24 +5,23 @@ class StepSequencer extends Component {
   render() {
     return (
       <div className="stepSequencer" style={{ display: 'flex', flexDirection: 'column' }}>
-        <StepsRow instrumentName="Kick" />
-        <StepsRow instrumentName="Snare" />
-        <StepsRow instrumentName="Clap" />
-        <StepsRow instrumentName="HHat Closed" />
-        <StepsRow instrumentName="HHat Open" />
-        <StepsRow instrumentName="Ride" />
+        <StepsRow instName="kick" instLabel="Kick" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="snare" instLabel="Snare" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="clap" instLabel="Clap" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="hhC" instLabel="HHat Closed" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="hhO" instLabel="HHat Open" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="ride" instLabel="Ride" _handleInstBtnClick={this.props._handleInstBtnClick} />
         <p />
-        <StepsRow instrumentName="Bass" />
+        <StepsRow instName="bass" instLabel="Bass" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="monoSynthOne" instLabel="Synth One" _handleInstBtnClick={this.props._handleInstBtnClick} />
+        <StepsRow instName="monoSynthTwo" instLabel="Synth Two" _handleInstBtnClick={this.props._handleInstBtnClick} />
         <StepsRow
-          instName="monoSynth"
-          instrumentName="Synth One"
+          instName="monoSynthThree"
+          instLabel="Synth Three"
           _handleInstBtnClick={this.props._handleInstBtnClick}
         />
-        <StepsRow instrumentName="Synth Two" />
-        <StepsRow instrumentName="Synth Three" />
       </div>
     );
   }
 }
-
 export default StepSequencer;

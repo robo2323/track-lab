@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import MonoSynth from './Synths/MonoSynth';
 import StepSequencer from './StepSequencer/StepSequencer';
+const Context = React.createContext();
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      monoSynth: false
+      
+      // other key:vals get generated on the fly
     };
-
     this.instBtnClick = this.instBtnClick.bind(this);
     this.instClose = this.instClose.bind(this);
   }
@@ -23,12 +24,33 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Context.Provider
+        value={{
+          state: this.state,
+          actions: {
+            setInstNote: (instName, stepNum, note) => {
+              if (this.state[`${instName}Notes`]) {
+                const notes = this.state[`${instName}Notes`];
+                notes[stepNum] = note;
+                this.setState({ [`${instName}Notes`]: notes });
+              } else {
+                const notes = new Array(16);
+                notes[stepNum] = note;
+                this.setState({ [`${instName}Notes`]: notes });
+              }
+            }
+          }
+        }}
+      >
         <StepSequencer _handleInstBtnClick={this.instBtnClick} />
-        <MonoSynth instName="monoSynth" isOpen={this.state.monoSynth} _handleClose={this.instClose} />
-      </div>
+
+        <MonoSynth instName="bass" isOpen={this.state.bass} _handleClose={this.instClose} />
+        <MonoSynth instName="monoSynthOne" isOpen={this.state.monoSynthOne} _handleClose={this.instClose} />
+        <MonoSynth instName="monoSynthTwo" isOpen={this.state.monoSynthTwo} _handleClose={this.instClose} />
+        <MonoSynth instName="monoSynthThree" isOpen={this.state.monoSynthThree} _handleClose={this.instClose} />
+      </Context.Provider>
     );
   }
 }
 
-export default App;
+export { App, Context };

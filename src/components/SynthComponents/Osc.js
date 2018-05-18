@@ -10,12 +10,13 @@ class Osc extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wavType: this.props.defaultWavType,
+      wavType: this.props.wavType,
       wavTypes: this.props.wavTypes,
       wavTypeI: 0,
-      tuningCourse: 0,
-      tuningFine: 0,
-      tuning: 0
+      tuningCourse: this.props.tuningCourse,
+      tuningFine: this.props.tuningFine,
+      tuning: 0,
+      gain:this.props.gain
     };
     this._handleClick = this._handleClick.bind(this);
     this._handleLevelChange = this._handleLevelChange.bind(this);
@@ -43,16 +44,16 @@ class Osc extends Component {
   }
   render() {
     return (
+
       <div className="osc-container">
         <div className="osc-level">
-          <Slider _input={this._handleLevelChange} />
+          <Slider _input={this._handleLevelChange} min={-15} max={10} value={0} />
           <p />
           <Label text="Osc Level" />
         </div>
         <div className="wavtype">
           <Label text="Wave Shape" />
           <Button _handleClick={this._handleClick} />
-
           <Display data={this.state.wavType} width={48} height={28} />
         </div>
         <div className="tuning">
@@ -60,7 +61,7 @@ class Osc extends Component {
             styles={{ left: '2px' }}
             min={-1200}
             max={1200}
-            value={0}
+            value={this.props.tuningCourse}
             step={100}
             _input={this._handleTuningChange}
           />
@@ -68,7 +69,7 @@ class Osc extends Component {
             styles={{ left: '-30px' }}
             min={-100}
             max={100}
-            value={0}
+            value={this.props.tuningFine}
             step={1}
             _input={this._handleTuningChange}
             id="fine"

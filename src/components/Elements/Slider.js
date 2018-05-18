@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Slider = ({ min = -15, max = 10, value = 0, step = 1, _input, styles = {}, id = '' }) => {
+const Slider = ({ min = 0, max = 100, value = 0, step = 1, _input, styles = {}, id = '' }) => {
   const _onChange = (e) => {
     _input(e.target);
   };

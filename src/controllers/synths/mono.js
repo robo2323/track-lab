@@ -1,6 +1,6 @@
 import Tone from 'tone';
 
-const Mono = function() {
+const MonoSynth = function() {
   return {
     oscOne: new Tone.OmniOscillator({
       type: 'sawtooth'
@@ -56,9 +56,7 @@ const Mono = function() {
   };
 };
 
-const monoSynth = new Mono();
-monoSynth.initialise();
-export default monoSynth;
+export default MonoSynth;
 
 // kick drum
 // const mono = new Tone.MonoSynth({

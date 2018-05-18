@@ -3,7 +3,7 @@ import keydown, { ALL_KEYS } from 'react-keydown';
 import Modal from 'react-modal';
 import Osc from '../SynthComponents/Osc';
 
-import monoSynth from '../../controllers/synths/mono';
+import MonoSynthController from '../../controllers/synths/mono';
 
 class MonoSynth extends Component {
   constructor(props) {
@@ -11,11 +11,22 @@ class MonoSynth extends Component {
     this.state = {
       displayOneData: '',
       wavs: { saw: 'sawtooth', sin: 'sine', sqr: 'square', tri: 'triangle', pwm: 'pwm', Fsw: 'fatsawtooth' },
-      moadIsOpen: false
+      oscOneWav: 'saw',
+      oscOneGain: 0,
+      oscOneTuningCourse: 0,
+      oscOneTuningFine: 0,
+      oscTwoWav: 'pwm',
+      oscTwoGain: 0,
+      oscTwoTuningCourse: 0,
+      oscTwoTuningFine: 0
     };
-    this.testChange = this.testChange.bind(this);
     this._handleOscChange = this._handleOscChange.bind(this);
+    this._handleSliderLevelChange = this._handleSliderLevelChange.bind(this);
+    this._handleSliderTuningChange = this._handleSliderTuningChange.bind(this);
     this.close = this.close.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.monoSynth = new MonoSynthController();
+    this.monoSynth.initialise();
   }
 
   @keydown(ALL_KEYS)
@@ -34,39 +45,47 @@ class MonoSynth extends Component {
       '[': 'F3',
       ']': 'G3'
     };
-    monoSynth.triggerAttackRelease(`${notes[e.key]}`);
+    this.monoSynth.triggerAttackRelease(`${notes[e.key]}`);
+  }
+  afterOpenModal() {
+    // this.setState({
+    //   oscOneGain: s.oscOne.volume.value,
+    //   oscOneWav: s.oscOne.type,
+    //   oscTwoGain: s.oscTwo.volume.value,
+    //   oscTwoWav: s.oscTwo.type
+    // });
   }
   close() {
     this.props._handleClose(this.props.instName);
   }
   _handleOscChange({ oscName, wavtype }) {
-    monoSynth.changeOsc(oscName, this.state.wavs[wavtype]);
+    this.monoSynth.changeOsc(oscName, this.state.wavs[wavtype]);
   }
   _handleSliderLevelChange({ oscName, level }) {
-    monoSynth.changeOscGain(oscName, level);
-    level < -14 ? monoSynth.changeOscGain(oscName, -100) : monoSynth.changeOscGain(oscName, level);
+    this.monoSynth.changeOscGain(oscName, level);
+    level < -14 ? this.monoSynth.changeOscGain(oscName, -100) : this.monoSynth.changeOscGain(oscName, level);
   }
   _handleSliderTuningChange({ oscName, tuning }) {
-    monoSynth.changeOscTuning(oscName, tuning);
+    this.monoSynth.changeOscTuning(oscName, tuning);
   }
 
-  testChange(e) {
-    mono.filterEnvelope.baseFrequency = e.target.value;
-    this.setState({ displayOneData: e.target.value });
-  }
   render() {
     return (
       <Modal
         className="mono-synth"
         isOpen={this.props.isOpen}
+        onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props._handleClose}
         contentLabel="Mono Synth"
         ariaHideApp={false}
       >
         <div className="osc flex-row">
           <Osc
+            tuningCourse={this.state.oscOneTuningCourse}
+            tuningFine={this.state.oscOnetuningFine}
+            gain={this.state.oscOnegain}
             oscName={'oscOne'}
-            defaultWavType="saw"
+            wavType={this.state.oscOneWav}
             wavTypes={['saw', 'tri', 'sin', 'sqr']}
             oscChange={this._handleOscChange}
             gainChange={this._handleSliderLevelChange}
@@ -75,8 +94,11 @@ class MonoSynth extends Component {
         </div>
         <div className="osc flex-row">
           <Osc
+            tuningCourse={this.state.oscTwoTuningCourse}
+            tuningFine={this.state.oscTwotuningFine}
+            gain={this.state.oscTwogain}
             oscName={'oscTwo'}
-            defaultWavType="pwm"
+            wavType={this.state.oscTwoWav}
             wavTypes={['pwm', 'Fsw']}
             oscChange={this._handleOscChange}
             gainChange={this._handleSliderLevelChange}
