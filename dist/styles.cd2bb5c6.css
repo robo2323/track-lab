@@ -364,10 +364,10 @@ input[type='range']:focus::-ms-fill-upper {
 .step__clicked {
   border: 1px solid rgba(53, 53, 53, 0.246);
   background: rgba(102, 102, 102, 0.719);
-  background-image: -webkit-linear-gradient(left top, rgba(138, 183, 255, 0.911), rgba(25, 106, 238, 0.883));
-  background-image: -webkit-linear-gradient(top left, rgba(138, 183, 255, 0.911), rgba(25, 106, 238, 0.883));
-  background-image: linear-gradient(to bottom right, rgba(138, 183, 255, 0.911), rgba(25, 106, 238, 0.883));
-  box-shadow: 1px 1px 10px rgba(0, 98, 255, 0.883), 0px 0px 1px rgba(26, 114, 255, 0.883);
+  background-image: -webkit-linear-gradient(left top, rgba(173, 204, 255, 0.911), rgba(72, 142, 255, 0.883));
+  background-image: -webkit-linear-gradient(top left, rgba(173, 204, 255, 0.911), rgba(72, 142, 255, 0.883));
+  background-image: linear-gradient(to bottom right, rgba(173, 204, 255, 0.911), rgba(72, 142, 255, 0.883));
+  box-shadow: 1px 1px 10px rgba(55, 131, 255, 0.883), 0px 0px 1px rgba(81, 147, 255, 0.883);
 }
 .stepSequencer {
   width: 1000px;

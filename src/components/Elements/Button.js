@@ -11,7 +11,7 @@ class Button extends Component {
 
   _onClick() {
     this.setState({ switched: !this.state.switched });
-    this.props._handleClick && this.props._handleClick();
+    this.props._handleClick && this.props._handleClick(this.props.data);
   }
   render() {
     const styles = this.props.styles || {};

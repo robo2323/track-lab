@@ -7,8 +7,12 @@ class StepsRow extends Component {
   render() {
     return (
       <div style={{ display: 'flex', flexDirection: 'row', margin: '10px 0' }}>
-        <Display data={this.props.instrumentName} width={80} height={55}  />
-        <Button styles={{ borderRadius: '50%', height: '40px', width: '40px', margin: '0 20px' }} />
+        <Display data={this.props.instrumentName} width={80} height={55} />
+        <Button
+          styles={{ borderRadius: '50%', height: '40px', width: '40px', margin: '0 20px' }}
+          _handleClick={this.props._handleInstBtnClick}
+          data={this.props.instName}
+        />
         <Step />
         <Step />
         <Step />

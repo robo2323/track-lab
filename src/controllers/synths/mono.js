@@ -9,8 +9,7 @@ const Mono = function() {
       type: 'pwm',
       spread: 40,
       count: 6,
-      modulationFrequency  : 0.1
-
+      modulationFrequency: 0.1
     }),
     envOne: new Tone.AmplitudeEnvelope(),
     envTwo: new Tone.AmplitudeEnvelope(),
@@ -23,6 +22,19 @@ const Mono = function() {
       this.envTwo.toMaster();
       this.oscOne.start();
       this.oscTwo.start();
+      // const that = this;
+      // const loop = new Tone.Sequence(
+      //   function(time, note) {
+      //     that.oscOne.frequency.value = note;
+      //     that.oscTwo.frequency.value = note;
+      //     that.envOne.triggerAttackRelease('16n');
+      //     that.envTwo.triggerAttackRelease('16n');
+      //   },
+      //   ['A2', 'C2', '', 'C2', 'A2', '', 'A2', '', 'A2', 'C2', '', 'C2', 'A2', 'C2', '', 'C2'],
+      //   '16n'
+      // );
+      // Tone.Transport.start();
+      // loop.start();
     },
     triggerAttackRelease(note) {
       this.oscOne.frequency.value = note;
