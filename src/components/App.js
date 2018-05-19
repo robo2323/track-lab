@@ -6,8 +6,7 @@ const Context = React.createContext();
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
+    this.state = {    
       // other key:vals get generated on the fly
     };
     this.instBtnClick = this.instBtnClick.bind(this);
@@ -28,6 +27,9 @@ class App extends Component {
         value={{
           state: this.state,
           actions: {
+            setState: (key, val) => {
+              this.setState({ key: val });
+            },
             setInstNote: (instName, stepNum, note) => {
               if (this.state[`${instName}Notes`]) {
                 const notes = this.state[`${instName}Notes`];
