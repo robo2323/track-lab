@@ -27,7 +27,7 @@ class MonoSynth extends Component {
     this._handleSliderLevelChange = this._handleSliderLevelChange.bind(this);
     this._handleSliderTuningChange = this._handleSliderTuningChange.bind(this);
     this.close = this.close.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
+
     this.monoSynth = new MonoSynthController();
     this.monoSynth.initialise();
   }
@@ -50,14 +50,23 @@ class MonoSynth extends Component {
     };
     this.monoSynth.triggerAttackRelease(`${notes[e.key]}`);
   }
-  // afterOpenModal() {
-  // this.setState({
-  //   oscOneGain: s.oscOne.volume.value,
-  //   oscOneWav: s.oscOne.type,
-  //   oscTwoGain: s.oscTwo.volume.value,
-  //   oscTwoWav: s.oscTwo.type
-  // });
-  // }
+  componentDidUpdate() {
+    if (this.props.notes) {
+      this.monoSynth.setNotes(this.props.notes);
+
+      db
+        .collection('tracks')
+        .doc('test-track')
+        .collection('patterns')
+        .doc('1')
+        .set(
+          {
+            [this.props.instName]: this.props.notes
+          },
+          { merge: true }
+        );
+    }
+  }
   componentDidMount() {
     db
       .collection('tracks')
@@ -66,21 +75,37 @@ class MonoSynth extends Component {
       .doc(this.props.instName)
       .onSnapshot((doc) => {
         const settings = doc.data();
-        console.log(settings);
-        
-
-        this.setState({
-          oscOneGain: settings.oscOneGain,
-          oscOneWav: settings.oscOneType,
-          oscOneTuningCourse: settings.oscOneTuningCourse,
-          oscOneTuningFine: settings.oscOneTuningFine,
-          oscOneTuning: +settings.oscOneTuningCourse + +settings.oscOneTuningFine,
-          oscTwoGain: settings.oscTwoGain,
-          oscTwoWav: settings.oscTwoType,
-          oscTwoTuningCourse: settings.oscTwoTuningCourse,
-          oscTwoTuningFine: settings.oscTwoTuningFine,
-          oscTwoTuning: +settings.oscTwoTuningCourse + +settings.oscTwoTuningFine
-        });
+        if (!settings) {
+          db
+            .collection('tracks')
+            .doc('test-track')
+            .collection('synthSettings')
+            .doc(this.props.instName)
+            .set({
+              oscOneGain: 0,
+              oscOneWav: 'saw',
+              oscOneTuningCourse: 0,
+              oscOneTuningFine: 0,
+              oscOneTuning: 0,
+              oscTwoGain: 0,
+              oscTwoWav: 'pwm',
+              oscTwoTuningCourse: 0,
+              oscTwoTuningFine: 0
+            });
+        } else {
+          this.setState({
+            oscOneGain: settings.oscOneGain,
+            oscOneWav: settings.oscOneWav,
+            oscOneTuningCourse: settings.oscOneTuningCourse,
+            oscOneTuningFine: settings.oscOneTuningFine,
+            oscOneTuning: +settings.oscOneTuningCourse + +settings.oscOneTuningFine,
+            oscTwoGain: settings.oscTwoGain,
+            oscTwoWav: settings.oscTwoWav,
+            oscTwoTuningCourse: settings.oscTwoTuningCourse,
+            oscTwoTuningFine: settings.oscTwoTuningFine,
+            oscTwoTuning: +settings.oscTwoTuningCourse + +settings.oscTwoTuningFine
+          });
+        }
       });
   }
   close() {
@@ -119,6 +144,7 @@ class MonoSynth extends Component {
             oscChange={this._handleOscChange}
             gainChange={this._handleSliderLevelChange}
             tuningChange={this._handleSliderTuningChange}
+            instName={this.props.instName}
             db={db}
           />
         </div>
@@ -134,6 +160,7 @@ class MonoSynth extends Component {
             oscChange={this._handleOscChange}
             gainChange={this._handleSliderLevelChange}
             tuningChange={this._handleSliderTuningChange}
+            instName={this.props.instName}
             db={db}
           />
         </div>

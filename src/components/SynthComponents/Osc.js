@@ -25,13 +25,13 @@ class Osc extends Component {
 
     this.props.oscChange({ oscName: this.props.oscName, wavtype: this.state.wavTypes[i] });
     // get oscname for db call
-    const oscName = `${this.props.oscName}Type`;
+    const oscName = `${this.props.oscName}Wav`;
     // update osc type in db
     this.props.db
       .collection('tracks')
       .doc('test-track')
       .collection('synthSettings')
-      .doc('bass')
+      .doc(this.props.instName)
       .set(
         {
           [oscName]: this.state.wavTypes[i]
@@ -49,7 +49,7 @@ class Osc extends Component {
       .collection('tracks')
       .doc('test-track')
       .collection('synthSettings')
-      .doc('bass')
+      .doc(this.props.instName)
       .set(
         {
           [oscName]: target.value
@@ -74,7 +74,7 @@ class Osc extends Component {
       .collection('tracks')
       .doc('test-track')
       .collection('synthSettings')
-      .doc('bass')
+      .doc(this.props.instName)
       .set(
         {
           [oscName]: target.value
