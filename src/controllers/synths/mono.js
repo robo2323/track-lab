@@ -1,5 +1,4 @@
 import Tone from 'tone';
-Tone.Transport.start();
 
 const MonoSynth = function() {
   return {
@@ -15,31 +14,26 @@ const MonoSynth = function() {
     envOne: new Tone.AmplitudeEnvelope(),
     envTwo: new Tone.AmplitudeEnvelope(),
     filter: new Tone.Filter(),
-    notes: new Array(16),
-    loop: new Tone.Sequence(
-      (time, note) => {
-        this.oscOne.frequency.value = note;
-        this.oscTwo.frequency.value = note;
-        this.envOne.triggerAttackRelease('16n');
-        this.envTwo.triggerAttackRelease('16n');
-      },
-      this.notes,
-      '16n'
-    ),
+    panVol: new Tone.PanVol(),
+    notes: new Array(16).fill(''),
+
     initialise() {
       this.oscOne.connect(this.envOne);
       this.oscTwo.connect(this.envOne);
       this.envOne.connect(this.filter);
       this.filter.connect(this.envTwo);
-      this.envTwo.toMaster();
+      this.envTwo.chain(this.panVol, Tone.Master);
+      // this.envTwo.toMaster();
+      this.oscOne.start().sync();
+      this.oscTwo.start().sync();
       this.oscOne.start();
       this.oscTwo.start();
     },
-    triggerAttackRelease(note) {
+    triggerAttackRelease(note, time = '8n') {
       this.oscOne.frequency.value = note;
       this.oscTwo.frequency.value = note;
-      this.envOne.triggerAttackRelease('8n');
-      this.envTwo.triggerAttackRelease('8n');
+      this.envOne.triggerAttackRelease(time);
+      this.envTwo.triggerAttackRelease(time);
     },
     changeOsc(oscName, shape) {
       this[oscName].stop();
@@ -54,9 +48,6 @@ const MonoSynth = function() {
     },
     setNotes(notes) {
       this.notes = notes;
-    },
-    play() {
-      this.loop.start();
     }
   };
 };

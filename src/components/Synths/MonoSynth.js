@@ -3,6 +3,7 @@ import keydown, { ALL_KEYS } from 'react-keydown';
 import Modal from 'react-modal';
 import Osc from '../SynthComponents/Osc';
 import db from '../../firebase';
+import Tone from 'tone';
 
 import MonoSynthController from '../../controllers/synths/mono';
 
@@ -21,15 +22,35 @@ class MonoSynth extends Component {
       oscTwoGain: 0,
       oscTwoTuningCourse: 0,
       oscTwoTuningFine: 0,
-      oscTwoTuning: 0
+      oscTwoTuning: 0,
+      test: 0
     };
     this._handleOscChange = this._handleOscChange.bind(this);
     this._handleSliderLevelChange = this._handleSliderLevelChange.bind(this);
     this._handleSliderTuningChange = this._handleSliderTuningChange.bind(this);
     this.close = this.close.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
 
     this.monoSynth = new MonoSynthController();
     this.monoSynth.initialise();
+    const notes = new Array(16).fill(null);
+    this.loop = new Tone.Sequence(
+      (time, note) => {
+        note && this.monoSynth.triggerAttackRelease(note);
+      },
+      notes,
+      '16n'
+    );
+    this.loop.start();
+    // db
+    //   .collection('tracks')
+    //   .doc('test-track')
+    //   .collection('patterns')
+    //   .doc('1')
+    //   .onSnapshot(doc=>{
+
+    //   })
+    
   }
 
   @keydown(ALL_KEYS)
@@ -51,6 +72,16 @@ class MonoSynth extends Component {
     this.monoSynth.triggerAttackRelease(`${notes[e.key]}`);
   }
   componentDidUpdate() {
+    if (this.props.currentNote) {
+      const noteIndex = this.props.currentNote[0];
+      const note = this.props.currentNote[1];
+      if (!note) {
+        this.loop.remove(noteIndex);
+      } else {
+        this.loop.add(noteIndex, note);
+      }
+    }
+
     if (this.props.notes) {
       this.monoSynth.setNotes(this.props.notes);
 
@@ -68,6 +99,7 @@ class MonoSynth extends Component {
     }
   }
   componentDidMount() {
+    this.props.createInstNotes(this.props.instName);
     db
       .collection('tracks')
       .doc('test-track')
