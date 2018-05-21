@@ -19,7 +19,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #151f27;
+  background: #001224;
 }
 .button {
   width: 25px;
@@ -45,7 +45,7 @@ body {
   background-image: linear-gradient(to bottom right, rgba(255, 191, 138, 0.911), rgba(255, 115, 0, 0.883));
   box-shadow: 1px 1px 10px rgba(255, 115, 0, 0.65), 0px 0px 1px rgba(255, 129, 26, 0.65);
 }
-input[type='range'] {
+.slider-large {
   -webkit-appearance: none;
   margin: 6px 0;
   width: 100px;
@@ -56,10 +56,10 @@ input[type='range'] {
           transform: rotate(270deg);
   -moz-transform: rotate(270deg);
 }
-input[type='range']:focus {
+.slider-large:focus {
   outline: none;
 }
-input[type='range']::-webkit-slider-runnable-track {
+.slider-large::-webkit-slider-runnable-track {
   width: 100px;
   height: 8px;
   cursor: pointer;
@@ -69,7 +69,7 @@ input[type='range']::-webkit-slider-runnable-track {
   border-radius: 1px;
   border: 1px solid black;
 }
-input[type='range']::-webkit-slider-thumb {
+.slider-large::-webkit-slider-thumb {
   border: 1px solid rgba(22, 22, 22, 0.2);
   height: 12px;
   width: 20px;
@@ -83,10 +83,10 @@ input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   margin-top: -3px;
 }
-input[type='range']:focus::-webkit-slider-runnable-track {
+.slider-large:focus::-webkit-slider-runnable-track {
   background: #4f4f4f;
 }
-input[type='range']::-moz-range-track {
+.slider-large::-moz-range-track {
   width: 100px;
   height: 8px;
   cursor: pointer;
@@ -96,7 +96,7 @@ input[type='range']::-moz-range-track {
   border-radius: 1px;
   border: 1px solid black;
 }
-input[type='range']::-moz-range-thumb {
+.slider-large::-moz-range-thumb {
   border: 1px solid rgba(22, 22, 22, 0.2);
   height: 12px;
   width: 20px;
@@ -107,7 +107,7 @@ input[type='range']::-moz-range-thumb {
   background-image: linear-gradient(to bottom right, #e0e0e0, #b8b8b8);
   cursor: pointer;
 }
-input[type='range']::-ms-track {
+.slider-large::-ms-track {
   width: 100px;
   height: 8px;
   cursor: pointer;
@@ -117,19 +117,19 @@ input[type='range']::-ms-track {
   border-width: 20px 0;
   color: transparent;
 }
-input[type='range']::-ms-fill-lower {
+.slider-large::-ms-fill-lower {
   background: #353535;
   border: 1px solid black;
   border-radius: 2px;
   box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
 }
-input[type='range']::-ms-fill-upper {
+.slider-large::-ms-fill-upper {
   background: #424242;
   border: 1px solid black;
   border-radius: 2px;
   box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
 }
-input[type='range']::-ms-thumb {
+.slider-large::-ms-thumb {
   border: 1px solid rgba(22, 22, 22, 0.2);
   height: 12px;
   width: 20px;
@@ -140,10 +140,111 @@ input[type='range']::-ms-thumb {
   background-image: linear-gradient(to bottom right, #e0e0e0, #b8b8b8);
   cursor: pointer;
 }
-input[type='range']:focus::-ms-fill-lower {
+.slider-large:focus::-ms-fill-lower {
   background: #424242;
 }
-input[type='range']:focus::-ms-fill-upper {
+.slider-large:focus::-ms-fill-upper {
+  background: #4f4f4f;
+}
+.slider-small {
+  -webkit-appearance: none;
+  margin: 6px 0;
+  width: 50px;
+  position: absolute;
+  left: -5px;
+  top: 28%;
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+}
+.slider-small:focus {
+  outline: none;
+}
+.slider-small::-webkit-slider-runnable-track {
+  width: 50px;
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
+  background: #424242;
+  border-radius: 1px;
+  border: 1px solid black;
+}
+.slider-small::-webkit-slider-thumb {
+  border: 1px solid rgba(22, 22, 22, 0.2);
+  height: 12px;
+  width: 20px;
+  border-radius: 2px;
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, #e0e0e0, #b8b8b8);
+  background-image: -webkit-linear-gradient(top left, #e0e0e0, #b8b8b8);
+  background-image: linear-gradient(to bottom right, #e0e0e0, #b8b8b8);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3px;
+}
+.slider-small:focus::-webkit-slider-runnable-track {
+  background: #4f4f4f;
+}
+.slider-small::-moz-range-track {
+  width: 50px;
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
+  background: #424242;
+  border-radius: 1px;
+  border: 1px solid black;
+}
+.slider-small::-moz-range-thumb {
+  border: 1px solid rgba(22, 22, 22, 0.2);
+  height: 12px;
+  width: 20px;
+  border-radius: 2px;
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, #e0e0e0, #b8b8b8);
+  background-image: linear-gradient(to bottom right, #e0e0e0, #b8b8b8);
+  cursor: pointer;
+}
+.slider-small::-ms-track {
+  width: 50px;
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 20px 0;
+  color: transparent;
+}
+.slider-small::-ms-fill-lower {
+  background: #353535;
+  border: 1px solid black;
+  border-radius: 2px;
+  box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
+}
+.slider-small::-ms-fill-upper {
+  background: #424242;
+  border: 1px solid black;
+  border-radius: 2px;
+  box-shadow: INSET 2px 2px 2px 2px rgba(34, 34, 34, 0.6);
+}
+.slider-small::-ms-thumb {
+  border: 1px solid rgba(22, 22, 22, 0.2);
+  height: 12px;
+  width: 20px;
+  border-radius: 2px;
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, #e0e0e0, #b8b8b8);
+  background-image: linear-gradient(to bottom right, #e0e0e0, #b8b8b8);
+  cursor: pointer;
+}
+.slider-small:focus::-ms-fill-lower {
+  background: #424242;
+}
+.slider-small:focus::-ms-fill-upper {
   background: #4f4f4f;
 }
 .display {
@@ -196,6 +297,7 @@ input[type='range']:focus::-ms-fill-upper {
 .label {
   width: 80px;
   color: #e2e2e2;
+  text-align: center;
 }
 .osc-level {
   position: relative;
@@ -369,8 +471,16 @@ input[type='range']:focus::-ms-fill-upper {
   background-image: linear-gradient(to bottom right, rgba(173, 204, 255, 0.911), rgba(72, 142, 255, 0.883));
   box-shadow: 1px 1px 10px rgba(55, 131, 255, 0.883), 0px 0px 1px rgba(81, 147, 255, 0.883);
 }
+.currentStep {
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, rgba(189, 255, 173, 0.911), rgba(99, 255, 72, 0.883));
+  background-image: -webkit-linear-gradient(top left, rgba(189, 255, 173, 0.911), rgba(99, 255, 72, 0.883));
+  background-image: linear-gradient(to bottom right, rgba(189, 255, 173, 0.911), rgba(99, 255, 72, 0.883));
+  box-shadow: 1px 1px 10px rgba(55, 255, 88, 0.883), 0px 0px 1px rgba(81, 255, 109, 0.883);
+}
 .stepSequencer {
-  width: 1000px;
+  width: 1050px;
   margin: 0 auto;
   padding: 25px;
   border-radius: 8px;
