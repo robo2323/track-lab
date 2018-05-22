@@ -6,6 +6,7 @@ import Button from '../Elements/Button';
 import Label from '../Elements/Label';
 import Display from '../Elements/Display';
 import { Context } from '../App';
+import db from '../../firebase'
 
 class Osc extends Component {
   constructor(props) {
@@ -89,7 +90,13 @@ class Osc extends Component {
         {({ state, actions }) => (
           <div className="osc-container">
             <div className="osc-level">
-              <Slider _input={this._handleLevelChange} min={-15} max={10} value={this.props.gain} />
+              <Slider
+                styles={{ left: '4px' }}
+                _input={this._handleLevelChange}
+                min={-15}
+                max={4}
+                value={this.props.gain}
+              />
               <p />
               <Label text="Osc Level" />
             </div>
@@ -100,7 +107,7 @@ class Osc extends Component {
             </div>
             <div className="tuning">
               <Slider
-                styles={{ left: '2px' }}
+                styles={{ left: '22px' }}
                 min={-1200}
                 max={1200}
                 value={this.props.tuningCourse}
@@ -108,7 +115,7 @@ class Osc extends Component {
                 _input={this._handleTuningChange}
               />
               <Slider
-                styles={{ left: '-30px' }}
+                styles={{ left: '-22px' }}
                 min={-100}
                 max={100}
                 value={this.props.tuningFine}

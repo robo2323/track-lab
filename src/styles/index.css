@@ -17,9 +17,23 @@
 }
 * {
   box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 body {
-  background: #001224;
+  background: #14232f;
+}
+.modal {
+  margin: 50px auto;
+}
+.overlayBg {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(63, 63, 63, 0.644);
 }
 .button {
   width: 25px;
@@ -148,8 +162,8 @@ body {
 }
 .slider-small {
   -webkit-appearance: none;
-  margin: 6px 0;
-  width: 50px;
+  margin-top: 9px;
+  width: 54px;
   position: absolute;
   left: -5px;
   top: 28%;
@@ -351,11 +365,66 @@ body {
   margin: 8px 0;
 }
 .osc-container {
+  margin: 10px;
   display: grid;
   box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.7), 0px 0px 1px rgba(47, 47, 47, 0.7);
   border-radius: 5px;
-  background: #242424;
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, rgba(255, 158, 141, 0.418), rgba(255, 99, 71, 0.52));
+  background-image: -webkit-linear-gradient(top left, rgba(255, 158, 141, 0.418), rgba(255, 99, 71, 0.52));
+  background-image: linear-gradient(to bottom right, rgba(255, 158, 141, 0.418), rgba(255, 99, 71, 0.52));
   grid-template-areas: 'osc-level wavtype tuning' 'osc-level wavtype tuning';
+}
+.filterParams {
+  position: relative;
+}
+.filter-cutoff-q {
+  position: relative;
+  grid-area: filter-cutoff-q;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.089);
+  border-radius: 5px;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+.filter-cutoff-q .label {
+  margin: 8px 0;
+}
+.filt-type {
+  grid-area: filt-type;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.089);
+  border-radius: 5px;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+}
+.filt-container {
+  margin: 10px;
+  display: grid;
+  box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.7), 0px 0px 1px rgba(47, 47, 47, 0.7);
+  border-radius: 5px;
+  border: 1px solid rgba(53, 53, 53, 0.246);
+  background: rgba(102, 102, 102, 0.719);
+  background-image: -webkit-linear-gradient(left top, rgba(123, 180, 142, 0.568), rgba(52, 187, 97, 0.493));
+  background-image: -webkit-linear-gradient(top left, rgba(123, 180, 142, 0.568), rgba(52, 187, 97, 0.493));
+  background-image: linear-gradient(to bottom right, rgba(123, 180, 142, 0.568), rgba(52, 187, 97, 0.493));
+  grid-template-rows: auto;
+  grid-template-areas: 'filt-type filter-cutoff-q' 'filt-type filter-cutoff-q';
 }
 .oscOne {
   grid-area: oscOne;
@@ -387,52 +456,44 @@ body {
   -webkit-box-pack: space-evenly;
           justify-content: space-evenly;
 }
-.lfo {
-  grid-area: lfo;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-          flex-direction: row;
-  -webkit-box-pack: space-evenly;
-          justify-content: space-evenly;
-}
-.env {
-  grid-area: env;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-          flex-direction: row;
-  -webkit-box-pack: space-evenly;
-          justify-content: space-evenly;
-}
-.displayContainer {
-  grid-area: display;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-          flex-direction: row;
-  -webkit-box-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-pack: center;
-          justify-content: center;
-}
 .text {
   grid-area: text;
-  text-align: left;
+  margin: auto;
+  -webkit-box-align: center;
+          align-items: center;
+  text-align: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+}
+.x {
+  grid-area: x;
+  text-align: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
 }
 .mono-synth {
-  width: 800px;
+  width: 960px;
   height: 500px;
   background: #b5bdc8;
   background: -webkit-linear-gradient(-45deg, #b5bdc8 0%, #828c95 36%, #424e55 100%);
   background: -webkit-linear-gradient(315deg, #b5bdc8 0%, #828c95 36%, #424e55 100%);
   background: linear-gradient(135deg, #b5bdc8 0%, #828c95 36%, #424e55 100%);
+  border-radius: 5px;
   display: grid;
-  grid-template-rows: auto;
-  grid-template-areas: 'oscOne oscTwo text filt filt' 'lfo display display env env';
+  box-shadow: 10px 10px 15px #222, 0px 0px 10px #2f2f2f;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-areas: 'text text text' 'oscOne oscTwo filt' 'oscOne oscTwo filt' '. x .';
   padding: 20px;
 }
 .step {
@@ -481,7 +542,7 @@ body {
 }
 .stepSequencer {
   width: 1050px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 25px;
   border-radius: 8px;
   box-shadow: 10px 10px 15px #000000, 0px 0px 10px #0d0d0d;

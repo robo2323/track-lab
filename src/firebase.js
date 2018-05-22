@@ -1,18 +1,19 @@
 // Initialize Firebase
 import firebase from 'firebase/app';
 import '@firebase/firestore';
+import '@firebase/database';
 const config = {
-  apiKey: 'AIzaSyAInFdm3hEpZyLDAXhpZisLoD9PJg7Ql_U',
-  authDomain: 'track-lab.firebaseapp.com',
-  databaseURL: 'https://track-lab.firebaseio.com',
-  projectId: 'track-lab',
-  storageBucket: 'track-lab.appspot.com',
-  messagingSenderId: '670445857191',
-  timestampsInSnapshots: true
+  apiKey: 'AIzaSyCl1o8FdxceRaU1NQ7-7yOVUOtfAMWFu18',
+  authDomain: 'tracklab-295e6.firebaseapp.com',
+  databaseURL: 'https://tracklab-295e6.firebaseio.com',
+  projectId: 'tracklab-295e6',
+  storageBucket: '',
+  messagingSenderId: '659365138225'
 };
 firebase.initializeApp(config);
 const db = firebase.firestore();
-const settings = { timestampsInSnapshots: true};
+// const db = firebase.database();
+const settings = { timestampsInSnapshots: true };
 db.settings(settings);
 
 export default db;

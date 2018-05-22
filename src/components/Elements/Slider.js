@@ -5,6 +5,7 @@ const Slider = ({
   max = 100,
   value = 0,
   step = 1,
+  instName,
   _input,
   styles = {},
   width = '35px',
@@ -12,7 +13,8 @@ const Slider = ({
   sliderClass = 'slider-large'
 }) => {
   const _onChange = (e) => {
-    _input(e.target);
+
+    _input(e.target,instName);
   };
   return (
     <div style={{ width: width }}>
@@ -23,7 +25,7 @@ const Slider = ({
         type="range"
         min={min}
         max={max}
-        defaultValue={value}
+        value={value}
         step={step}
         style={styles}
       />

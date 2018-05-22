@@ -6,6 +6,8 @@ import db from '../../firebase';
 import Tone from 'tone';
 
 import MonoSynthController from '../../controllers/synths/mono';
+import Filter from '../SynthComponents/Filter';
+import Display from '../Elements/Display';
 
 class MonoSynth extends Component {
   constructor(props) {
@@ -23,25 +25,30 @@ class MonoSynth extends Component {
       oscTwoTuningCourse: 0,
       oscTwoTuningFine: 0,
       oscTwoTuning: 0,
-      test: 0
+      filtType: 'lp',
+      filtCutoff: 5000,
+      filtQ: 1,
+      playing: false
     };
     this._handleOscChange = this._handleOscChange.bind(this);
     this._handleSliderLevelChange = this._handleSliderLevelChange.bind(this);
     this._handleSliderTuningChange = this._handleSliderTuningChange.bind(this);
     this.close = this.close.bind(this);
+    this._handleFilterParamChange = this._handleFilterParamChange.bind(this);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
 
     this.monoSynth = new MonoSynthController();
     this.monoSynth.initialise();
-    const notes = new Array(16).fill(null);
+    this.notes = new Array(16).fill(null);
     this.loop = new Tone.Sequence(
       (time, note) => {
-        note && this.monoSynth.triggerAttackRelease(note);
+        this.monoSynth.triggerAttackRelease(note);
       },
-      notes,
+      this.notes,
       '16n'
     );
-    this.loop.start();
+
+    // this.loop.start();
     // db
     //   .collection('tracks')
     //   .doc('test-track')
@@ -50,7 +57,6 @@ class MonoSynth extends Component {
     //   .onSnapshot(doc=>{
 
     //   })
-    
   }
 
   @keydown(ALL_KEYS)
@@ -72,34 +78,68 @@ class MonoSynth extends Component {
     this.monoSynth.triggerAttackRelease(`${notes[e.key]}`);
   }
   componentDidUpdate() {
+    if (this.props.playing && !this.state.playing) {
+      this.loop.start();
+    } else if (!this.props.playing && this.state.playing) {
+      this.loop.stop();
+    }
+    if (this.props.volume && +this.props.volume > -15) {
+      this.monoSynth.panVol.set('mute', false);
+      this.monoSynth.panVol.set('volume', +this.props.volume);
+    } else if (this.props.volume && +this.props.volume === -15) {
+      this.monoSynth.panVol.set('mute', true);
+    }
+
     if (this.props.currentNote) {
       const noteIndex = this.props.currentNote[0];
       const note = this.props.currentNote[1];
+
       if (!note) {
         this.loop.remove(noteIndex);
       } else {
+        this.loop.remove(noteIndex);
+
         this.loop.add(noteIndex, note);
       }
     }
 
     if (this.props.notes) {
-      this.monoSynth.setNotes(this.props.notes);
-
-      db
-        .collection('tracks')
-        .doc('test-track')
-        .collection('patterns')
-        .doc('1')
-        .set(
-          {
-            [this.props.instName]: this.props.notes
-          },
-          { merge: true }
-        );
+      // db
+      //   .collection('tracks')
+      //   .doc('test-track')
+      //   .collection('patterns')
+      //   .doc(this.props.instName)
+      //   .set({
+      //     notes: this.props.notes
+      //   });
     }
   }
   componentDidMount() {
     this.props.createInstNotes(this.props.instName);
+    // db
+    //   .collection('tracks')
+    //   .doc('test-track')
+    //   .collection('patterns')
+    //   .doc(this.props.instName)
+    //   .set({
+    //     0: null,
+    //     1: null,
+    //     2: null,
+    //     3: null,
+    //     4: null,
+    //     5: null,
+    //     6: null,
+    //     7: null,
+    //     8: null,
+    //     9: null,
+    //     10: null,
+    //     11: null,
+    //     12: null,
+    //     13: null,
+    //     14: null,
+    //     15: null
+    //   });
+
     db
       .collection('tracks')
       .doc('test-track')
@@ -107,37 +147,22 @@ class MonoSynth extends Component {
       .doc(this.props.instName)
       .onSnapshot((doc) => {
         const settings = doc.data();
-        if (!settings) {
-          db
-            .collection('tracks')
-            .doc('test-track')
-            .collection('synthSettings')
-            .doc(this.props.instName)
-            .set({
-              oscOneGain: 0,
-              oscOneWav: 'saw',
-              oscOneTuningCourse: 0,
-              oscOneTuningFine: 0,
-              oscOneTuning: 0,
-              oscTwoGain: 0,
-              oscTwoWav: 'pwm',
-              oscTwoTuningCourse: 0,
-              oscTwoTuningFine: 0
-            });
-        } else {
-          this.setState({
-            oscOneGain: settings.oscOneGain,
-            oscOneWav: settings.oscOneWav,
-            oscOneTuningCourse: settings.oscOneTuningCourse,
-            oscOneTuningFine: settings.oscOneTuningFine,
-            oscOneTuning: +settings.oscOneTuningCourse + +settings.oscOneTuningFine,
-            oscTwoGain: settings.oscTwoGain,
-            oscTwoWav: settings.oscTwoWav,
-            oscTwoTuningCourse: settings.oscTwoTuningCourse,
-            oscTwoTuningFine: settings.oscTwoTuningFine,
-            oscTwoTuning: +settings.oscTwoTuningCourse + +settings.oscTwoTuningFine
-          });
-        }
+
+        this.setState({
+          oscOneGain: settings.oscOneGain,
+          oscOneWav: settings.oscOneWav,
+          oscOneTuningCourse: settings.oscOneTuningCourse,
+          oscOneTuningFine: settings.oscOneTuningFine,
+          oscOneTuning: +settings.oscOneTuningCourse + +settings.oscOneTuningFine,
+          oscTwoGain: settings.oscTwoGain,
+          oscTwoWav: settings.oscTwoWav,
+          oscTwoTuningCourse: settings.oscTwoTuningCourse,
+          oscTwoTuningFine: settings.oscTwoTuningFine,
+          oscTwoTuning: +settings.oscTwoTuningCourse + +settings.oscTwoTuningFine,
+          filtType: settings.filtType,
+          filtCutoff: settings.filtCutoff,
+          filtQ: settings.filtQ
+        });
       });
   }
   close() {
@@ -154,15 +179,26 @@ class MonoSynth extends Component {
     this.monoSynth.changeOscTuning(oscName, tuning);
   }
 
+  _handleFilterParamChange(param, value) {
+    if (value === 'lp') {
+      value = 'lowpass';
+    } else if (value === 'hp') {
+      value = 'highpass';
+    }
+    this.monoSynth.filter.set(param === 'cutoff' ? 'frequency' : param, value);
+    console.log(this.monoSynth.filter.Q.value);
+  }
+
   render() {
     return (
       <Modal
-        className="mono-synth"
+        className="mono-synth modal"
         isOpen={this.props.isOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props._handleClose}
         contentLabel="Mono Synth"
         ariaHideApp={false}
+        overlayClassName="overlayBg"
       >
         <div className="osc flex-row">
           <Osc
@@ -196,8 +232,29 @@ class MonoSynth extends Component {
             db={db}
           />
         </div>
-        <h3 className="text">MonoSynth</h3>
-        <button onClick={this.close}>X</button>
+        <div className="text">
+          <Display data={this.props.instName} width="300px" margin="auto" fontSize="30px" />
+        </div>
+
+        <Filter
+          className="filt flex-row"
+          filtTypes={['lp', 'hp']}
+          filtType={this.state.filtType}
+          paramChange={this._handleFilterParamChange}
+          db={db}
+          instName={this.props.instName}
+          q={this.state.filtQ}
+          cutoff={this.state.filtCutoff}
+        />
+        <div className="x">
+          <button
+            style={{ width: '80px', height: '35px', color: '#fefefe', fontSize: '25px' }}
+            className="button"
+            onClick={this.close}
+          >
+            X
+          </button>
+        </div>
       </Modal>
     );
   }

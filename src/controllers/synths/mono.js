@@ -23,28 +23,27 @@ const MonoSynth = function() {
       this.envOne.connect(this.filter);
       this.filter.connect(this.envTwo);
       this.envTwo.chain(this.panVol, Tone.Master);
-      // this.envTwo.toMaster();
       this.oscOne.start().sync();
       this.oscTwo.start().sync();
-      this.oscOne.start();
-      this.oscTwo.start();
+      // this.oscOne.start();
+      // this.oscTwo.start();
     },
-    triggerAttackRelease(note, time = '8n') {
-      this.oscOne.frequency.value = note;
-      this.oscTwo.frequency.value = note;
+    triggerAttackRelease(note, time = '16n') {
+      this.oscOne.set('frequency', note);
+      this.oscTwo.set('frequency', note);
       this.envOne.triggerAttackRelease(time);
       this.envTwo.triggerAttackRelease(time);
     },
     changeOsc(oscName, shape) {
       this[oscName].stop();
-      this[oscName].type = shape;
+      this[oscName].set('type', shape);
       this[oscName].start();
     },
     changeOscGain(oscName, level) {
-      this[oscName].volume.value = level;
+      this[oscName].set('volume', level);
     },
     changeOscTuning(oscName, tuning) {
-      this[oscName].detune.value = tuning;
+      this[oscName].set('detune', tuning);
     },
     setNotes(notes) {
       this.notes = notes;
