@@ -304,8 +304,8 @@ body {
   background-image: linear-gradient(to bottom right, rgba(128, 128, 128, 0.678), rgba(85, 85, 85, 0.637));
   box-shadow: 1px 1px 1px rgba(34, 34, 34, 0.7), 0px 0px 1px rgba(47, 47, 47, 0.7);
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
 }
