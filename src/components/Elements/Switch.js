@@ -16,8 +16,9 @@ class Switch extends Component {
 
   render() {
     return (
-      <div 
+      <div
         onClick={this._onClick}
+        style={{ boxShadow: 'INSET 5px 5px 5px 2px rgba(34, 34, 34, 0.7)' }}
         className={`switch-container ${
           this.state.switched ? 'switch-container__switched' : 'switch-container__not-switched'
         }`}
