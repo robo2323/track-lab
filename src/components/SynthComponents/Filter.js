@@ -55,7 +55,6 @@ class Filter extends Component {
   }
 
   render() {
-    console.log(this.props.cutoff);
     
     return (
       <Context.Consumer>

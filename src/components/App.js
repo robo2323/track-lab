@@ -4,6 +4,11 @@ import StepSequencer from './StepSequencer/StepSequencer';
 import Tone from 'tone';
 import db from '../firebase';
 import Kick from './Synths/Kick';
+import OpenHiHat from './Synths/OpenHiHat';
+import ClosedHiHat from './Synths/ClosedHiHat';
+import Snare from './Synths/Snare';
+import Ride from './Synths/Ride';
+import Clap from './Synths/Clap';
 
 const Context = React.createContext();
 
@@ -24,6 +29,7 @@ class App extends Component {
     this.stop = this.stop.bind(this);
     this.createInstNotes = this.createInstNotes.bind(this);
     this.volumeSlider = this.volumeSlider.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
     const notes = new Array(16).fill('');
 
     this.loop = new Tone.Sequence(
@@ -38,6 +44,26 @@ class App extends Component {
       notes,
       '16n'
     );
+  }
+
+  componentDidMount() {
+    db
+      .collection('tracks')
+      .doc('test-track')
+      .collection('patterns')
+      .get()
+      .then((docs) => {
+        docs.forEach((doc) => {
+          const notes = [];
+          for (const note in doc.data()) {
+            if (doc.data().hasOwnProperty(note)) {
+              notes.push(doc.data()[note]);
+              this.setState({ currentNote: doc.data()[note] });
+            }
+          }
+          this.setState({ [`${doc.id}Notes`]: notes });
+        });
+      });
   }
   createInstNotes(instName) {
     this.setState({ [`${instName}Notes`]: new Array(16).fill(null) });
@@ -67,7 +93,6 @@ class App extends Component {
   render() {
     return (
       <Context.Provider
-
         value={{
           state: this.state,
           actions: {
@@ -75,8 +100,6 @@ class App extends Component {
               this.setState({ key: val });
             },
             setInstNote: (instName, stepNum, note) => {
-              console.log(note);
-
               if (this.state[`${instName}Notes`]) {
                 const notes = this.state[`${instName}Notes`];
                 notes[stepNum] = note;
@@ -86,13 +109,70 @@ class App extends Component {
           }
         }}
       >
-        <StepSequencer _handleVolumeSlider={this.volumeSlider} _handleInstBtnClick={this.instBtnClick} />
+        <StepSequencer
+          _handleVolumeSlider={this.volumeSlider}
+          _handleInstBtnClick={this.instBtnClick}
+          bassVolume={this.state.bassVolume}
+          kickVolume={this.state.kickVolume}
+          monoSynthOneVolume={this.state.monoSynthOneVolume}
+          monoSynthTwoVolume={this.state.monoSynthTwoVolume}
+          monoSynthThreeVolume={this.state.monoSynthThreeVolume}
+          openHiHatVolume={this.state.openHiHatVolume}
+          closedHiHatVolume={this.state.closedHiHatVolume}
+          snareVolume={this.state.snareVolume}
+          rideVolume={this.state.rideVolume}
+          clapVolume={this.state.clapVolume}
+          play={this.play}
+          stop={this.stop}
+        />
 
         <Kick
           instName="kick"
           createInstNotes={this.createInstNotes}
           playing={this.state.playing}
           currentNote={this.state.kickCurrentNote && this.state.kickCurrentNote}
+          volume={this.state.kickVolume}
+          notes={this.state.kickNotes}
+        />
+        <OpenHiHat
+          instName="openHiHat"
+          createInstNotes={this.createInstNotes}
+          playing={this.state.playing}
+          currentNote={this.state.openHiHatCurrentNote && this.state.openHiHatCurrentNote}
+          volume={this.state.openHiHatVolume}
+          notes={this.state.openHiHatNotes}
+        />
+        <ClosedHiHat
+          instName="closedHiHat"
+          createInstNotes={this.createInstNotes}
+          playing={this.state.playing}
+          currentNote={this.state.closedHiHatCurrentNote && this.state.closedHiHatCurrentNote}
+          volume={this.state.closedHiHatVolume}
+          notes={this.state.closedHiHatNotes}
+        />
+        <Snare
+          instName="snare"
+          createInstNotes={this.createInstNotes}
+          playing={this.state.playing}
+          currentNote={this.state.snareCurrentNote && this.state.snareCurrentNote}
+          volume={this.state.snareVolume}
+          notes={this.state.snareNotes}
+        />
+        <Ride
+          instName="ride"
+          createInstNotes={this.createInstNotes}
+          playing={this.state.playing}
+          currentNote={this.state.rideCurrentNote && this.state.rideCurrentNote}
+          volume={this.state.rideVolume}
+          notes={this.state.rideNotes}
+        />
+        <Clap
+          instName="clap"
+          createInstNotes={this.createInstNotes}
+          playing={this.state.playing}
+          currentNote={this.state.clapCurrentNote && this.state.clapCurrentNote}
+          volume={this.state.clapVolume}
+          notes={this.state.clapNotes}
         />
         <MonoSynth
           instName="bass"
@@ -104,6 +184,7 @@ class App extends Component {
           volume={this.state.bassVolume}
           playing={this.state.playing}
         />
+       
         <MonoSynth
           instName="monoSynthOne"
           createInstNotes={this.createInstNotes}
@@ -134,8 +215,6 @@ class App extends Component {
           volume={this.state.monoSynthThreeVolume}
           playing={this.state.playing}
         />
-        <button onClick={this.play}>play</button>
-        <button onClick={this.stop}>stop</button>
       </Context.Provider>
     );
   }

@@ -10,10 +10,7 @@ class StepsRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: randomColor({
-        format: 'rgba',
-        alpha: 0.8
-      })
+      color: randomColor()
     };
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -65,6 +62,7 @@ class StepsRow extends Component {
         <Slider
           min={-15}
           max={10}
+          value={this.props.volume}
           sliderClass={'slider-small'}
           styles={{ left: '103px' }}
           _input={this.props._handleVolumeSlider}

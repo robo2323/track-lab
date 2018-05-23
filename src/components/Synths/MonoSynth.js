@@ -89,6 +89,13 @@ class MonoSynth extends Component {
     } else if (this.props.volume && +this.props.volume === -15) {
       this.monoSynth.panVol.set('mute', true);
     }
+    if (this.props.notes) {
+      for (let i = 0; i < this.props.notes.length; i++) {
+        this.loop.remove(i);
+
+        this.loop.add(i, this.props.notes[i]);
+      }
+    }
 
     if (this.props.currentNote) {
       const noteIndex = this.props.currentNote[0];
@@ -103,19 +110,11 @@ class MonoSynth extends Component {
       }
     }
 
-    if (this.props.notes) {
-      // db
-      //   .collection('tracks')
-      //   .doc('test-track')
-      //   .collection('patterns')
-      //   .doc(this.props.instName)
-      //   .set({
-      //     notes: this.props.notes
-      //   });
-    }
+
   }
+
   componentDidMount() {
-    this.props.createInstNotes(this.props.instName);
+    // this.props.createInstNotes(this.props.instName);
     // db
     //   .collection('tracks')
     //   .doc('test-track')
@@ -186,7 +185,6 @@ class MonoSynth extends Component {
       value = 'highpass';
     }
     this.monoSynth.filter.set(param === 'cutoff' ? 'frequency' : param, value);
-    console.log(this.monoSynth.filter.Q.value);
   }
 
   render() {

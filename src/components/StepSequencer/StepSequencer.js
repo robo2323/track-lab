@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StepsRow from './StepsRow';
-import Tempo from './Tempo';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
+import faStop from '@fortawesome/fontawesome-free-solid/faStop';
 
 class StepSequencer extends Component {
   render() {
@@ -11,36 +13,42 @@ class StepSequencer extends Component {
           instLabel="Kick"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.kickVolume}
         />
         <StepsRow
           instName="snare"
           instLabel="Snare"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.snareVolume}
         />
         <StepsRow
           instName="clap"
           instLabel="Clap"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.clapVolume}
         />
         <StepsRow
-          instName="hhC"
+          instName="closedHiHat"
           instLabel="HHat Closed"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.hhCVolume}
         />
         <StepsRow
-          instName="hhO"
+          instName="openHiHat"
           instLabel="HHat Open"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.openHiHatVolume}
         />
         <StepsRow
           instName="ride"
-          instLabel="Ride"
+          instLabel="Rim"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.rideVolume}
         />
         <p />
         <StepsRow
@@ -48,26 +56,45 @@ class StepSequencer extends Component {
           instLabel="Bass"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.bassVolume}
         />
         <StepsRow
           instName="monoSynthOne"
           instLabel="Synth One"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.monoSynthOneVolume}
         />
         <StepsRow
           instName="monoSynthTwo"
           instLabel="Synth Two"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.monoSynthTwoVolume}
         />
         <StepsRow
           instName="monoSynthThree"
           instLabel="Synth Three"
           _handleInstBtnClick={this.props._handleInstBtnClick}
           _handleVolumeSlider={this.props._handleVolumeSlider}
+          volume={this.props.monoSynthThreeVolume}
         />
-        <Tempo />
+        <div style={{display:'flex',flexDirection:'row',width:'100%',alignItems:'flex-start'}}>
+          <button
+            style={{ width: '50px', height: '35px', color: '#fefefe', fontSize: '25px',marginRight:'10px' }}
+            className="button"
+            onClick={this.props.play}
+          >
+            <FontAwesomeIcon icon={faPlay} />
+          </button>
+          <button
+            style={{ width: '50px', height: '35px', color: '#fefefe', fontSize: '25px' }}
+            className="button"
+            onClick={this.props.stop}
+          >
+            <FontAwesomeIcon icon={faStop} />
+          </button>
+        </div>
       </div>
     );
   }

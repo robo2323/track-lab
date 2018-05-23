@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Context } from '../App';
 import db from '../../firebase';
-// const StepContext = React.createContext();
 
 class Step extends Component {
   constructor(props) {
@@ -23,28 +22,31 @@ class Step extends Component {
     if (this.props.instName === 'bass') {
       this.setState({ note: 'C', octave: '2' });
     }
+    db
+      .collection('tracks')
+      .doc('test-track')
+      .collection('patterns')
+      .doc(this.props.instName)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          if (doc.data()[this.props.stepNum]) {
+            const note = doc.data()[this.props.stepNum][0];
+            const octave = doc.data()[this.props.stepNum][1];
+            this.setState({
+              note,
+              octave,
+              clicked: note
+            });
+          } else {
+            this.setState({
+              clicked: false
+            });
+          }
+        }
+      });
   }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   // console.log(nextProps.instName, nextProps.note);
 
-  //   if (nextProps.note === undefined) {
-  //     return null;
-  //   }
-
-  //   if (nextProps.note !== null&&prevState.clicked) {
-  //     // console.log('fired change');
-  //     return { clicked: true, note: nextProps.note[0], octave: nextProps.note[1] };
-  //   }
-
-  //   if (nextProps.note === null) {
-  //     // console.log('fired');
-  //     return { clicked: false };
-  //     // return { clicked: true, note: nextProps.note[0], octave: nextProps.note[1] };
-  //   }
-
-  //   return null;
-  // }
   addStepToDB(stepNum, note) {
     db
       .collection('tracks')
@@ -111,7 +113,6 @@ class Step extends Component {
               }
             }}
             onClick={() => {
-              console.log(this.props.note);
 
               actions.setInstNote(
                 this.props.instName,
@@ -121,7 +122,6 @@ class Step extends Component {
               const clicked = !this.state.clicked;
 
               this.setState({ clicked: clicked }, () => {
-                console.log(this.state.clicked);
 
                 this.state.clicked
                   ? this.addStepToDB(this.props.stepNum, `${this.state.note}${this.state.octave}`)

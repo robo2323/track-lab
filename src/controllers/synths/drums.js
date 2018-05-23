@@ -1,26 +1,18 @@
 import Tone from 'tone';
+///HHO
 
 const lowPass = new Tone.Filter({
   frequency: 14000
-}).toMaster();
+});
 
-export const openHiHat = new Tone.NoiseSynth({
-  volume: -10,
-  filter: {
-    Q: 1
-  },
+const openHiHat = new Tone.NoiseSynth({
+  
+
   envelope: {
     attack: 0.01,
     decay: 0.3
-  },
-  filterEnvelope: {
-    attack: 0.01,
-    decay: 0.03,
-    baseFrequency: 4000,
-    octaves: -2.5,
-    exponent: 4
   }
-}).connect(lowPass);
+}).toMaster()
 
 export const closedHiHat = new Tone.NoiseSynth({
   volume: -10,
@@ -39,6 +31,8 @@ export const closedHiHat = new Tone.NoiseSynth({
     exponent: 4
   }
 }).connect(lowPass);
+lowPass.toMaster();
+////kick
 
 const kickEnvelope = new Tone.AmplitudeEnvelope({
   attack: 0.0001,
@@ -60,11 +54,11 @@ const kickSnapEnv = new Tone.FrequencyEnvelope({
 
 const kickMembrane = new Tone.MembraneSynth({
   envelope: {
-    pitchDecay  : 0.1 ,
+    pitchDecay: 0.1,
     sustain: 0,
     attack: 0.02,
     decay: 0.3
   },
   octaves: 3
 }).toMaster();
-export { kickEnvelope, kickSnapEnv, kickMembrane };
+export { kickEnvelope, kickSnapEnv, kickMembrane, openHiHat };
