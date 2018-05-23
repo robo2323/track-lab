@@ -1,10 +1,10 @@
 // main: ../../index.less
 
 .switch-container__switched {
-  background-color: rgba(117, 189, 115, 0.527);
+  background-color: rgb(9, 255, 0)
 }
 .switch-container__not-switched {
-  background-color: rgba(255, 165, 138, 0.541);
+  background-color: rgb(255, 60, 0);
 }
 .switch__switched {
   transform: translateX(100%);
@@ -12,8 +12,9 @@
 
 .switch-container {
   position: relative;
-  height: 20px;
-  width: 42px;
+  height: 40px;
+  width: 80px;
+  margin-top:10px;
   cursor: pointer;
   border-radius: 50px;
   box-shadow: INSET 5px 5px 5px 2px rgba(34, 34, 34, 0.7);
@@ -26,8 +27,8 @@
     
     .shadow(1px, 1px, rgba(34, 34, 34, 0.7));
     border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
     transition: all 0.15s ease-in-out;
   }
 }

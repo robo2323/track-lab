@@ -109,8 +109,6 @@ class MonoSynth extends Component {
         this.loop.add(noteIndex, note);
       }
     }
-
-
   }
 
   componentDidMount() {
@@ -178,13 +176,22 @@ class MonoSynth extends Component {
     this.monoSynth.changeOscTuning(oscName, tuning);
   }
 
-  _handleFilterParamChange(param, value) {
+  _handleFilterParamChange(target, value) {
+    console.log(target, value);
     if (value === 'lp') {
-      value = 'lowpass';
-    } else if (value === 'hp') {
-      value = 'highpass';
+      this.monoSynth.filter.set(target, 'lowpass');
+      return;
     }
-    this.monoSynth.filter.set(param === 'cutoff' ? 'frequency' : param, value);
+    if (value === 'hp') {
+      this.monoSynth.filter.set(target, 'highpass');
+      return;
+    }
+    if (target === 'filtQ') {
+      this.monoSynth.filter.set('Q', +value);
+    }
+    if (target === 'filtCutoff') {
+      this.monoSynth.filter.set('frequency', +value);
+    }
   }
 
   render() {

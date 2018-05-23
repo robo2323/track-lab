@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import StepsRow from './StepsRow';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
-import faStop from '@fortawesome/fontawesome-free-solid/faStop';
+// import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+// import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
+// import faStop from '@fortawesome/fontawesome-free-solid/faStop';
+import Switch from '../Elements/Switch';
+// import Display from '../Elements/Display';
 
 class StepSequencer extends Component {
   render() {
@@ -79,9 +81,17 @@ class StepSequencer extends Component {
           _handleVolumeSlider={this.props._handleVolumeSlider}
           volume={this.props.monoSynthThreeVolume}
         />
-        <div style={{display:'flex',flexDirection:'row',width:'100%',alignItems:'flex-start'}}>
-          <button
-            style={{ width: '50px', height: '35px', color: '#fefefe', fontSize: '25px',marginRight:'10px' }}
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'flex-start' }}>
+          <Switch _handleClick={this.props.play} _handleOff={this.props.stop} />
+        </div>
+      </div>
+    );
+  }
+}
+export default StepSequencer;
+{
+  /* <button
+            style={{ width: '50px', height: '35px', color: '#fefefe', fontSize: '25px', marginRight: '10px' }}
             className="button"
             onClick={this.props.play}
           >
@@ -93,10 +103,5 @@ class StepSequencer extends Component {
             onClick={this.props.stop}
           >
             <FontAwesomeIcon icon={faStop} />
-          </button>
-        </div>
-      </div>
-    );
-  }
+          </button> */
 }
-export default StepSequencer;

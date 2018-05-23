@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Slider from '../Elements/Slider';
-import Switch from '../Elements/Switch';
 import Button from '../Elements/Button';
 import Label from '../Elements/Label';
 import Display from '../Elements/Display';
@@ -70,7 +69,7 @@ class Filter extends Component {
               <Slider
                 styles={{ left: '22px' }}
                 min={0}
-                max={1000}
+                max={10000}
                 value={this.props.cutoff}
                 step={1}
                 _input={this._handleParamChange}

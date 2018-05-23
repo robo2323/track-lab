@@ -10,19 +10,19 @@ class Switch extends Component {
   }
   _onClick() {
     this.setState({ switched: !this.state.switched });
-    this.props._handleClick && this.props._handleClick();
+
+    this.state.switched ? this.props._handleOff() : this.props._handleClick();
   }
 
   render() {
     return (
-      <div
+      <div 
         onClick={this._onClick}
         className={`switch-container ${
           this.state.switched ? 'switch-container__switched' : 'switch-container__not-switched'
         }`}
       >
         <div className={`switch ${this.state.switched ? 'switch__switched' : ''}`} />
-        
       </div>
     );
   }

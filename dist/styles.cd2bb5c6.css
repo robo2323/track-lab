@@ -273,10 +273,10 @@ body {
   box-shadow: inset 2px 2px 10px #222;
 }
 .switch-container__switched {
-  background-color: rgba(117, 189, 115, 0.527);
+  background-color: #09ff00;
 }
 .switch-container__not-switched {
-  background-color: rgba(255, 165, 138, 0.541);
+  background-color: #ff3c00;
 }
 .switch__switched {
   -webkit-transform: translateX(100%);
@@ -284,8 +284,9 @@ body {
 }
 .switch-container {
   position: relative;
-  height: 20px;
-  width: 42px;
+  height: 40px;
+  width: 80px;
+  margin-top: 10px;
   cursor: pointer;
   border-radius: 50px;
   box-shadow: INSET 5px 5px 5px 2px rgba(34, 34, 34, 0.7);
@@ -303,8 +304,8 @@ body {
   background-image: linear-gradient(to bottom right, rgba(128, 128, 128, 0.678), rgba(85, 85, 85, 0.637));
   box-shadow: 1px 1px 1px rgba(34, 34, 34, 0.7), 0px 0px 1px rgba(47, 47, 47, 0.7);
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
 }
