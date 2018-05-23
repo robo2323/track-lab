@@ -177,7 +177,7 @@ class MonoSynth extends Component {
   }
 
   _handleFilterParamChange(target, value) {
-    console.log(target, value);
+    // console.log(target, value);
     if (value === 'lp') {
       this.monoSynth.filter.set(target, 'lowpass');
       return;
