@@ -7,12 +7,12 @@ TrackLab was my attempt to create an in-browser music creation platform that wou
 ## Installation
 Clone the repo<br>
 Install Parcel:<br>
-`npm install -g parcel-bundler`<br>
+```npm install -g parcel-bundler```<br>
 run:<br> 
-`npm install`<br>
-`npm run dev`<br>
+```npm install```<br>
+```npm run dev```<br>
 build:<br>
-`npm run build`
+```npm run build```
 
 ## Features
 * Real-Time collaboration, synth settings and notes are updated in real time from different users
@@ -25,10 +25,11 @@ I'm not sure I will continue with this project but I can definitely take some co
 ToneJS is great however there currently seems to be some issues with the library, using some deprecated methods of the WebAudio API. I believe this is why I could not get the playback to be timed accurately.
 
 ## Technologies Used
-* React
-* Tone.js
-* Firebase (firestore database)
-* Parcel for the build process
+* **React**
+* **Tone.js**
+* All UI components custom styled using **LESS/CSS**
+* **Firebase** (firestore database)
+* **Parcel** for the build process
 
 ## Acknowledgements
 A big thanks to Joel, John and Theo at GA.
