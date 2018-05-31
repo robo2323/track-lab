@@ -6,13 +6,22 @@ TrackLab was my attempt to create an in-browser music creation platform that wou
 
 ## Installation
 Clone the repo<br>
-Install Parcel:<br>
-```npm install -g parcel-bundler```<br>
-run:<br> 
-```npm install```<br>
-```npm run dev```<br>
-build:<br>
-```npm run build```
+**Install Parcel:**
+```
+npm install -g parcel-bundler
+```
+```
+npm install
+```
+run:
+```
+npm run dev
+```
+
+build:
+```
+npm run build
+```
 
 ## Features
 * Real-Time collaboration, synth settings and notes are updated in real time from different users
