@@ -4,6 +4,7 @@ import StepsRow from './StepsRow';
 // import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 // import faStop from '@fortawesome/fontawesome-free-solid/faStop';
 import Switch from '../Elements/Switch';
+import Label from '../Elements/Label';
 // import Display from '../Elements/Display';
 
 class StepSequencer extends Component {
@@ -83,6 +84,13 @@ class StepSequencer extends Component {
         />
         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'flex-start' }}>
           <Switch _handleClick={this.props.play} _handleOff={this.props.stop} />
+          <Label
+            styles={{
+              lineHeight: '50px',
+              marginLeft: '10px'
+            }}
+            text="start / stop"
+          />
         </div>
       </div>
     );

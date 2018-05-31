@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Label = ({ text = '' }) => {
-  return <span className="label">{text}</span>;
+const Label = ({ text = '', styles = {} }) => {
+  return (
+    <span style={styles} className="label">
+      {text}
+    </span>
+  );
 };
 
 export default Label;
